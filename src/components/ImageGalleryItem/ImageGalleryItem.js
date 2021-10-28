@@ -1,10 +1,21 @@
-import style from './ImageGalleryItem.module.css'
+import style from "./ImageGalleryItem.module.css";
+import PropTypes from "prop-types";
 
-export function ImageGalleryItem({hits:{ webformatURL, largeImageURL}}){
-    return(
-        <li className={style.ImageGalleryItem}>
-  <img src={webformatURL} alt="" width="640" className={style.ImageGalleryItem-image}/>
-</li>
+const ImageGalleryItem = ({ webformatURL, onImgClick }) => {
+  return (
+    <li className={style.ImageGalleryItem}>
+      <img
+        src={webformatURL}
+        alt="img"
+        className={style.ImageGalleryItemImage}
+        onClick={onImgClick}
+      />
+    </li>
+  );
+};
 
-    )
-}
+ImageGalleryItem.propTypes = {
+  webformatURL: PropTypes.string,
+};
+
+export default ImageGalleryItem;

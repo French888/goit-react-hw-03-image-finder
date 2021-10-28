@@ -1,19 +1,26 @@
-import style from './ImageGallery.module.css'
-import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem'
+import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
+import PropTypes from "prop-types";
 
-export function ImagesGallery({items}){
-    return(
-        <ul className={style.ImageGallery}>
-            {items.map(item=>(
-                <li key={item.hits.id}>
-                  <ImageGalleryItem hits={item.hits}/>
-                </li>
-            )
-                
-            
-       )}
-  
-</ul>
+const ImageGallery = ({ showGallery, onImgClick }) => {
+  return (
+    <ul className="ImageGallery">
+      {showGallery.map(({ id, webformatURL, largeImageURL }) => {
+        const handleItemClick = () => onImgClick(largeImageURL);
+        return (
+          <ImageGalleryItem
+            key={id}
+            webformatURL={webformatURL}
+            onImgClick={handleItemClick}
+          />
+        );
+      })}
+    </ul>
+  );
+};
 
-    )
-}
+ImageGallery.propTypes = {
+  showGallery: PropTypes.array,
+  onImgClick: PropTypes.func,
+};
+
+export default ImageGallery;
