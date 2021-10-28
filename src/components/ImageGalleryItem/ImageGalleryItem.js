@@ -1,9 +1,9 @@
 import style from './ImageGalleryItem.module.css'
 
-export function ImageGalleryItem(){
+export function ImageGalleryItem({hits:{ webformatURL, largeImageURL}}){
     return(
         <li className={style.ImageGalleryItem}>
-  <img src="" alt="" className={style.ImageGalleryItem-image}/>
+  <img src={webformatURL} alt="" width="640" className={style.ImageGalleryItem-image}/>
 </li>
 
     )
