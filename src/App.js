@@ -6,7 +6,7 @@ import Loader from "./components/Loader/Loader";
 import Modal from "./components/Modal/Modal";
 import Searchbar from "./components/Searchbar/Searchbar";
 import pixabayApi from "./services/pixabay.api";
-import PropTypes from "prop-types";
+
 
 class App extends Component {
   state = {
@@ -44,11 +44,11 @@ class App extends Component {
       .catch((error) => this.setState({ error }))
       .finally(() => {
         this.setState({ isLoading: false });
-        window.scrollTo({
-          top: document.documentElement.scrollHeight,
-          behavior: "smooth",
-        });
-      });
+        // window.scrollTo({
+        //   top: document.documentElement.scrollHeight,
+        //   behavior: "smooth",
+        // });
+      })
   };
 
   imgClick = (largeImageURL) => {
@@ -87,14 +87,5 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-  gallery: PropTypes.array,
-  page: PropTypes.number,
-  q: PropTypes.string,
-  largeImage: PropTypes.string,
-  showModal: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  error: PropTypes.string,
-};
 
 export default App;
