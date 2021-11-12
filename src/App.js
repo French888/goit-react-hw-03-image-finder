@@ -7,7 +7,6 @@ import Modal from "./components/Modal/Modal";
 import Searchbar from "./components/Searchbar/Searchbar";
 import pixabayApi from "./services/pixabay.api";
 
-
 class App extends Component {
   state = {
     gallery: [],
@@ -48,7 +47,7 @@ class App extends Component {
         //   top: document.documentElement.scrollHeight,
         //   behavior: "smooth",
         // });
-      })
+      });
   };
 
   imgClick = (largeImageURL) => {
@@ -87,5 +86,30 @@ class App extends Component {
   }
 }
 
+// export default App;
+// FriendList.propType = {
+//   friends: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       name: PropTypes.string,
+//       avatar: PropTypes.string,
+//       id: PropTypes.number,
+//       isOnline: PropTypes.bool,
+//     })
+//   ),
+// };
+
+App.propType = {
+  state: PropTypes.arrayOf(
+    PropTypes.shape({
+      gallery: PropTypes.array,
+      page: PropTypes.number,
+      q: PropTypes.string,
+      largeImage: PropTypes.string,
+      showModal: PropTypes.bool,
+      isLoading: PropTypes.bool,
+      error: PropTypes.string,
+    })
+  ),
+};
 
 export default App;
