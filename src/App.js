@@ -27,12 +27,12 @@ class App extends Component {
   onChangeQuery = (query) => {
     this.setState({ q: query, page: 1, gallery: [], error: null });
   };
+
   fetchGallery = () => {
     const { q, page } = this.state;
     const options = { q, page };
-
     this.setState({ isLoading: true });
-    pixabayApi
+    return pixabayApi
       .fetchPixabayImgs(options)
       .then(({ data }) => {
         this.setState((prevState) => ({
@@ -43,11 +43,24 @@ class App extends Component {
       .catch((error) => this.setState({ error }))
       .finally(() => {
         this.setState({ isLoading: false });
-        // window.scrollTo({
-        //   top: document.documentElement.scrollHeight,
-        //   behavior: "smooth",
-        // });
       });
+  };
+
+  loadMore = () => {
+    this.setState({ loading: true });
+    this.fetchGallery()
+      .then(() => {
+        this.scrollWindow();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => this.setState({ loading: false }));
+  };
+
+  scrollWindow = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
   };
 
   imgClick = (largeImageURL) => {
@@ -74,7 +87,7 @@ class App extends Component {
         <ImageGallery showGallery={gallery} onImgClick={this.imgClick} />
 
         {isLoading && <Loader />}
-        {shouldShowLoadMoreBtn && <Button onClick={this.fetchGallery} />}
+        {shouldShowLoadMoreBtn && <Button onClick={this.loadMore} />}
 
         {showModal && (
           <Modal onClose={this.imgClick}>
@@ -85,31 +98,5 @@ class App extends Component {
     );
   }
 }
-
-// export default App;
-// FriendList.propType = {
-//   friends: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       name: PropTypes.string,
-//       avatar: PropTypes.string,
-//       id: PropTypes.number,
-//       isOnline: PropTypes.bool,
-//     })
-//   ),
-// };
-
-App.propType = {
-  state: PropTypes.arrayOf(
-    PropTypes.shape({
-      gallery: PropTypes.array,
-      page: PropTypes.number,
-      q: PropTypes.string,
-      largeImage: PropTypes.string,
-      showModal: PropTypes.bool,
-      isLoading: PropTypes.bool,
-      error: PropTypes.string,
-    })
-  ),
-};
 
 export default App;
